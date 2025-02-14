@@ -35,6 +35,10 @@
 #define m_lt &mmv MOVE_LEFT
 #define m_rt &mmv MOVE_RIGHT
 
+#define m_lclk &mkp LCLK
+#define m_rclk &mkp RCLK
+#define m_mclk &mkp MCLK
+
 / {
 
    // Activate ADJUST layer by pressing raise and lower
@@ -113,7 +117,7 @@
 &trans     &kp N1       &kp N2       &kp N3       &kp N4       &kp N5                        &kp HOME  &kp PG_DN &kp PG_UP &kp END  &kp N0  &trans
 &trans     &kp N6       &kp N7       &kp N8       &kp N9       &kp N0                        &kp LEFT  &kp DOWN  &kp UP   &kp RIGHT &kp DEL &kp BSPC
 &trans     &kp K_UNDO   &kp K_CUT    &kp K_COPY   &kp K_PASTE  &trans        &trans  &trans  m_lt      m_dn      m_up     m_rt      &trans  &trans
-                        &trans       &trans       &trans       &trans        &trans  LCLK    MCLK      RCLK      &trans   &trans
+                        &trans       &trans       &trans       &trans        &trans  m_lclk  m_mclk    m_rclk    &trans   &trans
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
