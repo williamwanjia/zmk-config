@@ -24,6 +24,9 @@
 #define sft_spc &mt LSHFT SPACE
 #define alt_bspc &mt LALT BSPC
 
+#define alt_spc &mt LALT SPACE
+#define sft_bspc &mt LSHFT BSPC
+
 #define low_tab &lt LOWER TAB
 #define ctl_ent &mt LCTRL ENTER
 
@@ -69,7 +72,7 @@
 &kp ESC   &kp Q  &kp W    &kp E    &kp R     &kp T                            &kp Y  &kp U     &kp I     &kp O    &kp P    &kp BSPC
 &kp TAB   &kp A  &kp S    &kp D    &kp F     &kp G                            &kp H  &kp J     &kp K     &kp L    &kp SEMI &kp SQT
 &kp LSHFT &kp Z  &kp X    &kp C    &kp V     &kp B      &kp C_MUTE &none      &kp N  &kp M     &kp COMMA &kp DOT  &kp FSLH &kp RSHFT
-                 &kp LCTRL &kp LALT low_esc  alt_bspc   sft_spc    low_tab    ctl_ent  ris_del &kp RALT  &kp RGUI
+                 &kp LCTRL &kp LALT low_esc  alt_spc    sft_bspc   low_tab    ctl_ent  ris_del &kp RALT  &kp RGUI
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
