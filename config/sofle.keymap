@@ -46,6 +46,17 @@
 #define m_mclk &mkp MCLK
 
 / {
+    macros {
+        zed_em_kay: zed_em_kay {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LSHFT>
+                , <&macro_tap &kp Z &kp M &kp K>
+                , <&macro_release &kp LSHFT>
+                ;
+        };
+    };
 
    // Activate ADJUST layer by pressing raise and lower
     conditional_layers {
@@ -72,7 +83,7 @@
 &kp ESC   &kp Q  &kp W    &kp E    &kp R     &kp T                            &kp Y  &kp U     &kp I     &kp O    &kp P    &kp BSPC
 &kp TAB   &kp A  &kp S    &kp D    &kp F     &kp G                            &kp H  &kp J     &kp K     &kp L    &kp SEMI &kp SQT
 &kp LSHFT &kp Z  &kp X    &kp C    &kp V     &kp B      &kp C_MUTE &none      &kp N  &kp M     &kp COMMA &kp DOT  &kp FSLH &kp RSHFT
-                 &kp LCTRL &kp LALT low_esc  alt_spc    sft_bspc   low_tab    ctl_ent  ris_del &kp RALT  &kp RGUI
+                 &kp LCTRL &kp LALT low_esc  alt_spc    sft_bspc   low_tab    ctl_ent  ris_del &kp RALT  &zed_em_kay
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
@@ -117,7 +128,7 @@
 // | BTCLR | BT1  | BT2  |  BT3  |  BT4  |  BT5 |                |      |      |       |      |       |       |
 // |       |  1   |  2   |  3    |   4   |   5  |                | HOME | PGDN | PGUP  | END  |       |       |
 // |       |  6   |  7   |  8    |   9   |   0  |                |   <- |   v  |   ^   |  ->  |  DEL  | BKSPC |
-// |       | UNDO | CUT  | COPY  | PASTE |      |      |  |      |      |      |       |      |       |       |
+// |       | UNDO | CUT  | COPY  | PASTE |      |      |  |      |      |           |       |      |       |       |
             bindings = <
 &trans     &trans       &trans       &trans       &trans       &trans                        &trans    &trans    &trans   &trans    &trans  &trans
 &trans     &kp N1       &kp N2       &kp N3       &kp N4       &kp N5                        &kp HOME  &kp PG_DN &kp PG_UP &kp END  &kp N0  &trans
