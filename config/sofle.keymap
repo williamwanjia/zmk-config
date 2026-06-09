@@ -109,7 +109,7 @@
                  &kp LCTRL &kp LALT low_esc  alt_spc    sft_bspc   low_tab    ctl_ent  ris_del &kp RALT  &zed_em_kay
             >;
 
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
+            sensor-bindings = <&inc_dec_kp UP DOWN &inc_dec_kp LEFT RIGHT>;
         };
 
         lower_layer {
