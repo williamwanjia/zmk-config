@@ -47,6 +47,17 @@
 #define m_rclk &mkp RCLK
 #define m_mclk &mkp MCLK
 
+// Key position groups for home row mods (positional hold-tap).
+// Position 0 = first binding in default_layer, counting left-to-right, top-to-bottom.
+// Row0:  0  1  2  3  4  5   |  6  7  8  9 10 11
+// Row1: 12 13 14 15 16 17   | 18 19 20 21 22 23
+// Row2: 24 25 26 27 28 29   | 30 31 32 33 34 35   <- home row
+// Row3: 36 37 38 39 40 41 42| 43 44 45 46 47 48 49
+// Row4: 50 51 52 53 54      | 55 56 57 58 59       <- thumbs
+#define KEYS_L 0 1 2 3 4 5 12 13 14 15 16 17 24 25 26 27 28 29 36 37 38 39 40 41 42
+#define KEYS_R 6 7 8 9 10 11 18 19 20 21 22 23 30 31 32 33 34 35 43 44 45 46 47 48 49
+#define THUMBS 50 51 52 53 54 55 56 57 58 59
+
 / {
     macros {
         zed_em_kay: zed_em_kay {
@@ -79,6 +90,33 @@
             tapping-term-ms = <150>;
             bindings = <alt_spc>, <ctl_spc>;
         };
+
+        // Home row mods: resolve instantly to a tap while typing at speed
+        // (require-prior-idle-ms), and only resolve to a hold on a genuine
+        // cross-hand combination (hold-trigger-key-positions + on-release).
+        hml: home_row_mod_left {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <280>;
+            quick-tap-ms = <175>;
+            require-prior-idle-ms = <150>;
+            bindings = <&kp>, <&kp>;
+            hold-trigger-key-positions = <KEYS_R THUMBS>;
+            hold-trigger-on-release;
+        };
+
+        hmr: home_row_mod_right {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <280>;
+            quick-tap-ms = <175>;
+            require-prior-idle-ms = <150>;
+            bindings = <&kp>, <&kp>;
+            hold-trigger-key-positions = <KEYS_L THUMBS>;
+            hold-trigger-on-release;
+        };
     };
 
    // Activate ADJUST layer by pressing raise and lower
@@ -98,13 +136,13 @@
 // ------------------------------------------------------------------------------------------------------------
 // |   `   |  1  |  2  |  3   |  4   |  5   |                   |  6   |  7    |  8    |  9   |   0   |       |
 // |  ESC  |  Q  |  W  |  E   |  R   |  T   |                   |  Y   |  U    |  I    |  O   |   P   | BKSPC |
-// |  TAB  |  A  |  S  |  D   |  F   |  G   |                   |  H   |  J    |  K    |  L   |   ;   |   '   |
+// |  TAB  |A/GUI|S/ALT|D/CTRL|F/SHFT|  G   |                   |  H   |J/SHFT |K/CTRL | L/ALT| ;/GUI |   '   |
 // | SHIFT |  Z  |  X  |  C   |  V   |  B   |  MUTE  |  |       |  N   |  M    |  ,    |  .   |   /   | SHIFT |
 //               | GUI | ALT  | CTRL | LOWER|  ENTER |  | SPACE | RAISE| CTRL  | ALT   | GUI  |
             bindings = <
 &kp GRAVE &kp N1 &kp N2   &kp N3   &kp N4    &kp N5                           &kp N6 &kp N7    &kp N8    &kp N9   &kp N0   &none
 &kp ESC   &kp Q  &kp W    &kp E    &kp R     &kp T                            &kp Y  &kp U     &kp I     &kp O    &kp P    &kp BSPC
-&kp GRAVE &kp A  &kp S    &kp D    &kp F     &kp G                            &kp H  &kp J     &kp K     &kp L    &kp SEMI &kp SQT
+&kp GRAVE &hml LGUI A &hml LALT S &hml LCTRL D &hml LSHFT F &kp G              &kp H  &hmr RSHFT J &hmr RCTRL K &hmr RALT L &hmr RGUI SEMI &kp SQT
 &kp LCTRL &kp Z  &kp X    &kp C    &kp V     &kp B      &kp C_MUTE &none      &kp N  &kp M     &kp COMMA &kp DOT  &kp FSLH &kp RSHFT
                  &kp LCTRL &kp LALT low_esc  alt_spc    sft_bspc   low_tab    ctl_ent  ris_del &kp RALT  &zed_em_kay
             >;
@@ -181,4 +219,4 @@
         };
 
     };
-};
+}
